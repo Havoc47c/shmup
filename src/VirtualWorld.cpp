@@ -1,13 +1,16 @@
 #include "VirtualWorld.h"
 tick::Duration VirtualWorld::Tick() {
-	tick::Duration deltaTime = tick::Now() - lastTickTime;
+	tick::Instant currentTime = tick::Now();
+	tick::Duration deltaTime = currentTime - lastTickTime;
 	// can't use range based for, because it uses iterators, and if inside tick,
 	// new objects are created, then the iterators will be invalidated.
 	// for(const auto& renderable : renderables) {
 	for(int i = 0; i < renderables.size(); ++i) {
 		renderables[i]->Tick(deltaTime);
 	} 
-	lastTickTime = tick::Now();
+	// Must set the last tick time from the time tick started, otherwise frame
+	// updates are inconsistent.
+	lastTickTime = currentTime;
 	return deltaTime;
 }
 
