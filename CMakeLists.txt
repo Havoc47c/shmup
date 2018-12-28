@@ -12,8 +12,9 @@ include_directories(../)
 
 add_library(world src/VirtualWorld.cpp)
 add_library(game_window src/GameWindow.cpp)
+add_library(interleaved_passive_event src/InterleavedPassiveEvent.cpp)
 add_library(player src/Player.cpp)
-target_link_libraries(player ${CONAN_LIBS} world)
+target_link_libraries(player ${CONAN_LIBS} interleaved_passive_event world)
 
 add_executable(shmup src/shmup.cpp)
 target_link_libraries(shmup ${CONAN_LIBS} world player game_window)

@@ -20,7 +20,8 @@ public:
 		renderables.push_back(std::make_unique<T>(std::forward<Args>(args)...));
 		return static_cast<T*>(renderables.back().get());
 	}
-	tick::Duration RenderNextFrame();
+	tick::Duration PrepareNextFrame();
+	void RenderNextFrame();
 	template<typename T>
 	T* get() { return static_cast<T*>(renderables.back().get()); }
 	auto RenderableSize() { return renderables.size(); }

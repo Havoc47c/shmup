@@ -9,7 +9,7 @@
 
 Player::Player() {
 	auto shootEvent = [this]() {
-		WorldType::GetInstance()->Create<PlayerBullet>(this->getPosition(), -200);
+		WorldType::GetInstance()->Create<PlayerBullet>(this->getPosition(), -750);
 	};
 	Shoot = InterleavedPassiveEvent(shootEvent, 0.1s);
 	this->health = 100;

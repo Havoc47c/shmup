@@ -9,7 +9,8 @@
 
 namespace {
 using sf::Vector2;
-}
+}  // namespace
+
 
 int main() {
 
@@ -17,6 +18,16 @@ int main() {
 	VirtualWorld* world = VirtualWorld::CreateInstance(window);
 	Player* player = VirtualWorld::GetInstance()->Create<Player>();
 	player->setPosition(sf::Vector2f(0,0));
+
+	sf::Font font;
+	if(!font.loadFromFile("assets/OpenSans-Regular.ttf")) {
+		std::cout << "Font unable to load.\n";	
+	}
+
+	sf::Text fpsText;
+	fpsText.setFont(font);
+	fpsText.setFillColor(sf::Color::White);
+	fpsText.setCharacterSize(24);
 	
 	double runningFps = 0;
 	while (window->isOpen())
@@ -28,10 +39,11 @@ int main() {
 				window->close();
 		}
 
-		tick::Duration spf = world->RenderNextFrame();
-		//std::cout << spf.count() << '\n';
-		runningFps = (runningFps*0.95 + (1/spf.count())*0.05);
-		//std::cout << "FPS: " <<  runningFps << '\n';
+		tick::Duration spf = world->PrepareNextFrame();
+		runningFps = (runningFps*0.99 + (1/spf.count())*0.01);
+		fpsText.setString("FPS:" + std::to_string(static_cast<int>(runningFps)));
+		window->draw(fpsText);
+		world->RenderNextFrame();
 	}
 
 	return 0;

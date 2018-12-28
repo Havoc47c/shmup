@@ -14,7 +14,7 @@ tick::Duration VirtualWorld::Tick() {
 	return deltaTime;
 }
 
-tick::Duration VirtualWorld::RenderNextFrame() {
+tick::Duration VirtualWorld::PrepareNextFrame() {
 	Tick();
 	window->clear();
 	for(int i = 0; i < renderables.size(); ++i) {
@@ -30,11 +30,14 @@ tick::Duration VirtualWorld::RenderNextFrame() {
 		}
 	}
 
-	window->display();
 	auto currentFrameTime = tick::Now();
 	tick::Duration deltaTime = currentFrameTime - lastFrameTime;
 	lastFrameTime = currentFrameTime;
 	return deltaTime;
+}
+
+void VirtualWorld::RenderNextFrame() {
+	window->display();
 }
 
 void VirtualWorld::Delete(std::unique_ptr<Renderable>& object) {
