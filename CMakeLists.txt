@@ -13,7 +13,7 @@ include_directories(../)
 add_library(world src/VirtualWorld.cpp)
 add_library(game_window src/GameWindow.cpp)
 add_library(player src/Player.cpp)
-target_link_libraries(player ${CONAN_LIBS})
+target_link_libraries(player ${CONAN_LIBS} world)
 
 add_executable(shmup src/shmup.cpp)
 target_link_libraries(shmup ${CONAN_LIBS} world player game_window)

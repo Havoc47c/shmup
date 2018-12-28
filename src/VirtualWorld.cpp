@@ -1,8 +1,11 @@
 #include "VirtualWorld.h"
 tick::Duration VirtualWorld::Tick() {
 	tick::Duration deltaTime = tick::Now() - lastTickTime;
-	for(const auto& renderable : renderables) {
-		renderable->Tick(deltaTime);
+	// can't use range based for, because it uses iterators, and if inside tick,
+	// new objects are created, then the iterators will be invalidated.
+	// for(const auto& renderable : renderables) {
+	for(int i = 0; i < renderables.size(); ++i) {
+		renderables[i]->Tick(deltaTime);
 	} 
 	lastTickTime = tick::Now();
 	return deltaTime;
@@ -23,11 +26,11 @@ tick::Duration VirtualWorld::RenderNextFrame() {
 			--i;	
 		}
 	}
+
 	window->display();
 	auto currentFrameTime = tick::Now();
 	tick::Duration deltaTime = currentFrameTime - lastFrameTime;
 	lastFrameTime = currentFrameTime;
-	//std::cout << "Item count: " << renderables.size() << '\n';
 	return deltaTime;
 }
 
@@ -40,3 +43,5 @@ void VirtualWorld::Delete(std::unique_ptr<Renderable>& object) {
 	// Delete last item.
 	renderables.pop_back();
 }
+
+std::unique_ptr<VirtualWorld> VirtualWorld::instance = nullptr;

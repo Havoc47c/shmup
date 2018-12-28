@@ -1,8 +1,11 @@
 #include "Player.h"
 #include <cmath>
 #include <iostream>
+#include <utility>
 #include "GameWindow.h"
 #include "SFML/Window.hpp"
+#include "PlayerBullet.h"
+#include "VirtualWorld.h"
 
 Player::Player() {
 	this->health = 100;
@@ -25,4 +28,9 @@ void Player::Tick(tick::Duration deltaTime) {
 		this->velocity = {0.f, 0.f};
 	}
 	Base::Tick(deltaTime);
+
+	// fire bullet.
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		WorldType::GetInstance()->Create<PlayerBullet>(this->getPosition(), -800);
+	}
 }

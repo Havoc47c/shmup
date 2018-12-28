@@ -14,8 +14,8 @@ using sf::Vector2;
 int main() {
 
 	sf::RenderWindow* window = GameWindow::Create(sf::VideoMode(400, 400), "Yay");
-	VirtualWorld world = VirtualWorld(window);
-	Player* player = world.Create<Player>();
+	VirtualWorld* world = VirtualWorld::CreateInstance(window);
+	Player* player = VirtualWorld::GetInstance()->Create<Player>();
 	player->setPosition(sf::Vector2f(0,0));
 	
 	double runningFps = 0;
@@ -28,7 +28,7 @@ int main() {
 				window->close();
 		}
 
-		tick::Duration spf = world.RenderNextFrame();
+		tick::Duration spf = world->RenderNextFrame();
 		//std::cout << spf.count() << '\n';
 		runningFps = (runningFps*0.95 + (1/spf.count())*0.05);
 		//std::cout << "FPS: " <<  runningFps << '\n';
