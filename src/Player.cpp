@@ -8,6 +8,10 @@
 #include "VirtualWorld.h"
 
 Player::Player() {
+	auto shootEvent = [this]() {
+		WorldType::GetInstance()->Create<PlayerBullet>(this->getPosition(), -200);
+	};
+	Shoot = InterleavedPassiveEvent(shootEvent, 0.1s);
 	this->health = 100;
 	this->speed = 500;
 	this->shape = sf::CircleShape(5, 3);
@@ -29,8 +33,8 @@ void Player::Tick(tick::Duration deltaTime) {
 	}
 	Base::Tick(deltaTime);
 
-	// fire bullet.
+	// Try to fire bullet.
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-		WorldType::GetInstance()->Create<PlayerBullet>(this->getPosition(), -800);
+		Shoot.AttemptTrigger();
 	}
 }

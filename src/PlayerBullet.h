@@ -4,7 +4,7 @@
 class PlayerBullet : public Bullet<sf::CircleShape> {
 public:
 	PlayerBullet(sf::Vector2f spawnPoint, float speed) {
-		this->shape = sf::CircleShape(1, 3);
+		this->shape = sf::CircleShape(2, 5);
 		this->shape.setPosition(sf::Vector2f(GameWindow::Size()));
 		this->shape.setFillColor(sf::Color(255, 255, 255));
 		this->shape.setPosition(spawnPoint);

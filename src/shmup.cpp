@@ -13,7 +13,7 @@ using sf::Vector2;
 
 int main() {
 
-	sf::RenderWindow* window = GameWindow::Create(sf::VideoMode(400, 400), "Yay");
+	sf::RenderWindow* window = GameWindow::Create(sf::VideoMode(600, 600), "Yay");
 	VirtualWorld* world = VirtualWorld::CreateInstance(window);
 	Player* player = VirtualWorld::GetInstance()->Create<Player>();
 	player->setPosition(sf::Vector2f(0,0));
