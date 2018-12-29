@@ -10,7 +10,6 @@
 
 class VirtualWorld : public World {
 public:
-
 	void BeginTicking() {
 		lastTickTime = lastFrameTime = tick::Now();
 	}
@@ -35,7 +34,6 @@ public:
 	}
 	
 protected:
-	// Requires that safeToCreate be true.
 	void MergePendingRenderables();
 	VirtualWorld(sf::RenderWindow* newWindow) : 
 		World(newWindow),

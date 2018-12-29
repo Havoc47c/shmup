@@ -7,14 +7,13 @@
 #include "PlayerBullet.h"
 #include "VirtualWorld.h"
 
-Player::Player() {
+Player::Player() : Ship(sf::CircleShape(14,3)) {
 	auto shootEvent = [this]() {
 		WorldType::GetInstance()->Create<PlayerBullet>(this->getPosition(), -750);
 	};
-	Shoot = InterleavedPassiveEvent(shootEvent, 0.1s);
+	Shoot = InterleavedPassiveEvent(shootEvent, 0.15s);
 	this->health = 100;
 	this->speed = 500;
-	this->shape = sf::CircleShape(5, 3);
 	this->shape.setPosition(sf::Vector2f(GameWindow::Size()));
 	this->shape.setFillColor(sf::Color(255, 255, 255));
 }

@@ -4,6 +4,7 @@
 
 template <typename Shape>
 class Ship : public Object<Shape> {
+using Object<Shape>::Object;
 public:
 	virtual bool Alive(const sf::RenderWindow& window) const override;
 

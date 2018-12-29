@@ -13,8 +13,11 @@ using sf::Vector2;
 
 
 int main() {
-
+	sf::Cursor target;
+	target.loadFromSystem(sf::Cursor::Hand);
 	sf::RenderWindow* window = GameWindow::Create(sf::VideoMode(600, 600), "Yay");
+	window->setMouseCursorVisible(true);
+	window->setMouseCursor(target);
 	VirtualWorld* world = VirtualWorld::CreateInstance(window);
 	Player* player = VirtualWorld::GetInstance()->Create<Player>();
 	player->setPosition(sf::Vector2f(0,0));

@@ -4,6 +4,8 @@
 
 template<typename Shape>
 class Bullet : public Object<Shape> {
+using Object<Shape>::Object;
+public:
 	
 bool Alive(const sf::RenderWindow& window) const;
 };
