@@ -23,7 +23,7 @@ void Object::Render(sf::RenderWindow& window) const {
 	window.draw(*shape);
 }
 
-bool Object::Alive(const sf::RenderWindow& window) const {
+bool Object::AliveTickInternal(const sf::RenderWindow& window) const {
 	const sf::Vector2 size = window.getSize();
 	const sf::Vector2<float>& position = shape->getPosition();
 	// Object is in bounds of the screen.

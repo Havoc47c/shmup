@@ -19,7 +19,7 @@ tick::Duration VirtualWorld::PrepareNextFrame() {
 	window->clear();
 	for(int i = 0; i < renderables.size(); ++i) {
 		std::unique_ptr<Renderable>& renderable = renderables[i];
-		if (renderable->Alive(*window)) {
+		if (renderable->AliveTick(*window)) {
 			renderable->Render(*window);
 		} else {
 			// Plain erasing doesn't seem to have a huge performance penalty.

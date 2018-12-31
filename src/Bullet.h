@@ -7,5 +7,5 @@ class Bullet : public Object {
 using Object::Object;
 public:
 	
-bool Alive(const sf::RenderWindow& window) const;
+bool AliveTickInternal(const sf::RenderWindow& window) const;
 };

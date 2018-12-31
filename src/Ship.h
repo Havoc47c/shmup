@@ -5,7 +5,7 @@
 class Ship : public Object {
 using Object::Object;
 public:
-	virtual bool Alive(const sf::RenderWindow& window) const override;
+	virtual bool AliveTickInternal(const sf::RenderWindow& window) const override;
 
 	float health;
 	// Scalar unit in pixels per second.
