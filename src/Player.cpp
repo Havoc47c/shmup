@@ -4,17 +4,18 @@
 #include <utility>
 #include "GameWindow.h"
 #include "SFML/Window.hpp"
+#include "ShapeFactory.h"
 #include "PlayerBullet.h"
 #include "VirtualWorld.h"
 
-Player::Player() : Ship(sf::CircleShape(18,3), Team0) {
+Player::Player() : Ship(factory::Shape::PlayerShip(), Team0) {
 	auto shootEvent = [this]() {
 		WorldType::GetInstance()->Create<PlayerBullet>(this->getPosition(), -750);
 	};
 	Shoot = InterleavedPassiveEvent(shootEvent, 0.15s);
 	this->health = 100;
 	this->speed = 500;
-	this->shape.setPosition(sf::Vector2f(GameWindow::Size()));
+	this->setPosition(sf::Vector2f(GameWindow::Size()));
 }
 
 void Player::Tick(tick::Duration deltaTime) {

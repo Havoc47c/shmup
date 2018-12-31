@@ -1,10 +1,12 @@
 #pragma once
 #include "Bullet.h"
 
-class PlayerBullet : public Bullet<sf::CircleShape> {
+#include "ShapeFactory.h"
+
+class PlayerBullet : public Bullet {
 public:
-	PlayerBullet(sf::Vector2f spawnPoint, float speed) : Bullet(sf::CircleShape(5, 9), Team0) {
-		this->shape.setPosition(spawnPoint);
+	PlayerBullet(sf::Vector2f spawnPoint, float speed) : Bullet(factory::Shape::PlayerBullet(), Team0) {
+		this->setPosition(spawnPoint);
 		this->velocity = {0, speed};
 	}
 };

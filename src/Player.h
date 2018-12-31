@@ -5,9 +5,9 @@
 #include "Ship.h"
 #include "Tick.h"
 
-class Player : public Ship<sf::CircleShape>  {
+class Player : public Ship  {
 protected:
-using Base = Ship<sf::CircleShape>;
+using Base = Ship;
 public:
 	Player();
 	virtual void Tick(tick::Duration deltaTime) override;

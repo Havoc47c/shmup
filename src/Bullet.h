@@ -1,17 +1,11 @@
 #pragma once
 #include "Object.h"
 #include "GameWindow.h"
+#include "SFML/Graphics.hpp"
 
-template<typename Shape>
-class Bullet : public Object<Shape> {
-using Object<Shape>::Object;
+class Bullet : public Object {
+using Object::Object;
 public:
 	
 bool Alive(const sf::RenderWindow& window) const;
 };
-
-template<typename Shape>
-bool Bullet<Shape>::Alive(const sf::RenderWindow& window) const {
-	return GameWindow::WithinWindowBounds(this->shape.getGlobalBounds());
-}
-
