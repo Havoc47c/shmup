@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "Player.h"
 #include "SFML/Graphics.hpp"
+#include "ShapeFactory.h"
 #include "VirtualWorld.h"
 #include "GameWindow.h"
 
@@ -21,6 +22,10 @@ int main() {
 	VirtualWorld* world = VirtualWorld::CreateInstance(window);
 	Player* player = VirtualWorld::GetInstance()->Create<Player>();
 	player->setPosition(sf::Vector2f(0,0));
+
+	Ship* enemy = world->Create<Ship>(factory::shape::RectangleShip(), Team1);
+	enemy->setPosition(sf::Vector2f{200, 100});
+	enemy->health = 10;
 
 	sf::Font font;
 	if(!font.loadFromFile("assets/OpenSans-Regular.ttf")) {

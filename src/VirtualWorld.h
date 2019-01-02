@@ -16,17 +16,23 @@ public:
 
 	template <typename T, typename... Args>
 	T* Create(Args&&... args) {
-		renderables.push_back(std::make_unique<T>(std::forward<Args>(args)...));
-		return static_cast<T*>(renderables.back().get());
+		objects.push_back(std::make_unique<T>(std::forward<Args>(args)...));
+		return static_cast<T*>(objects.back().get());
 	}
-	tick::Duration PrepareNextFrame();
-	void RenderNextFrame();
+
+	tick::Duration PrepareNextFrame() override;
+
+	void RenderNextFrame() override;
+
 	template<typename T>
-	T* get() { return static_cast<T*>(renderables.back().get()); }
-	auto RenderableSize() { return renderables.size(); }
+	T* get() { return static_cast<T*>(objects.back().get()); }
+
+	auto ObjectSize() { return objects.size(); }
+
 	static VirtualWorld* GetInstance() {
 		return instance.get();
 	}
+
 	template<typename... Args>
 	static VirtualWorld* CreateInstance(Args&&... args) {
 		instance = std::unique_ptr<VirtualWorld>(new VirtualWorld(std::forward<Args>(args)...));
@@ -34,17 +40,21 @@ public:
 	}
 	
 protected:
-	void MergePendingRenderables();
+	void MergePendingObjects();
+
 	VirtualWorld(sf::RenderWindow* newWindow) : 
 		World(newWindow),
 		lastFrameTime(tick::Now()),
 		lastTickTime(lastFrameTime) {
 	}
 
-	tick::Duration Tick();
-	void Delete(std::unique_ptr<Renderable>& object);
+	tick::Duration Tick() override;
 
-	std::vector<std::unique_ptr<Renderable>> renderables;
+	tick::Duration CollisionCheck() override;
+
+	void Delete(std::unique_ptr<Object>& object);
+
+	std::vector<std::unique_ptr<Object>> objects;
 	// Used for fps measurements.
 	tick::Instant lastFrameTime;
 	// Used for proper displacement of moving objects.

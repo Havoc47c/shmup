@@ -25,11 +25,11 @@ public:
 
 	// Collision interface.
 	// Indicates whether this object will actually collide with other objects.
-	//virtual bool CollidesWithObjects() { return true; };
-	//// Indicates the type of objects that this collides with.
-	//virtual CollisionType CollisionType() = 0;
-	//// Method which actually handles what happends upon a collision.
-	//virtual void Collide(CollisionType type, Object* other);
+	virtual bool CollidesWithObjects() const { return true; };
+	// Indicates the type of objects that this collides with.
+	virtual CollisionType GetCollisionType() const = 0;
+	// Method which actually handles what happends upon a collision.
+	virtual void Collide(Object* other, CollisionType type) = 0;
 
 	sf::Vector2<float> velocity;
 	std::unique_ptr<sf::Shape> shape;

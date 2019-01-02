@@ -1,13 +1,13 @@
 #pragma once
 #include <memory>
 #include "SFML/Graphics.hpp"
+
 namespace factory {
+namespace shape {
 
-class Shape {
-public:
-	// Prototypes.
-	static std::unique_ptr<sf::CircleShape> PlayerShip();
-	static std::unique_ptr<sf::CircleShape> PlayerBullet();
-};
+std::unique_ptr<sf::CircleShape> PlayerShip();
+std::unique_ptr<sf::CircleShape> PlayerBullet();
+std::unique_ptr<sf::RectangleShape> RectangleShip();
 
+}  // namespace factory
 }  // namespace factory

@@ -8,7 +8,7 @@
 #include "PlayerBullet.h"
 #include "VirtualWorld.h"
 
-Player::Player() : Ship(factory::Shape::PlayerShip(), Team0) {
+Player::Player() : Ship(factory::shape::PlayerShip(), Team0) {
 	auto shootEvent = [this]() {
 		WorldType::GetInstance()->Create<PlayerBullet>(this->getPosition(), -750);
 	};

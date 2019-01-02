@@ -15,7 +15,7 @@ public:
 	}
 	
 	// Returns value indicating whether object is still alive. Alive=true/false
-	// Dead objects can be deleted
+	// Dead objects can be deleted.
 	[[nodiscard]] bool Alive() const noexcept { return alive; }
 	[[nodiscard]] bool Dead() const noexcept{ return !Alive(); }
 

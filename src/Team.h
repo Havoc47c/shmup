@@ -10,6 +10,7 @@ public:
 	}
 
 	bool operator==(const Team t) const;
+	bool operator!=(const Team t) const { return !(operator==(t)); }
 private:
 	constexpr static unsigned int MaxTeamCount = 4;
 	unsigned int team_index;
