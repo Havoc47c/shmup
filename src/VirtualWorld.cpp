@@ -2,6 +2,7 @@
 tick::Duration VirtualWorld::Tick() {
 	tick::Instant currentTime = tick::Now();
 	tick::Duration deltaTime = currentTime - lastTickTime;
+	TickAi();
 	// can't use range based for, because it uses iterators, and if inside tick,
 	// new objects are created, then the iterators will be invalidated.
 	// for(const auto& renderable : objects) {
@@ -14,14 +15,25 @@ tick::Duration VirtualWorld::Tick() {
 	return tick::Now() - currentTime;
 }
 
+// Ai's don't care about how long its been since the last tick.
+tick::Duration VirtualWorld::TickAi() {
+	tick::Instant currentTime = tick::Now();
+	for(int i = 0; i < ais.size(); ++i) {
+		if (ais[i]->Alive()) {
+			ais[i]->Tick();
+		} else {
+			Delete(ais[i]);
+		}
+	}
+
+	return tick::Now() - currentTime;
+}
+
 tick::Duration VirtualWorld::CollisionCheck() {
 	tick::Instant currentTime = tick::Now();
 	
 	for(int i = 0; i < objects.size(); ++i) {
-		// Don't collide objects which don't collide and which are type bullet.
-		// Bullets get their collision checked at the inner loop.
-		if (!objects[i]->CollidesWithObjects() ||
-		    objects[i]->GetCollisionType() == CollisionType::Bullet) {
+		if (!objects[i]->CollidesWithObjects()) {
 			continue;
 		}
 		for(int j = i+1 ; j < objects.size(); ++j) {
@@ -71,6 +83,16 @@ void VirtualWorld::Delete(std::unique_ptr<Object>& object) {
 	}
 	// Delete last item.
 	objects.pop_back();
+}
+
+void VirtualWorld::Delete(std::unique_ptr<Ai>& ai) {
+	// We might need to delete the last item on the vector.
+	if (ais.back() != ai) {
+		// Swap delete item with last item.
+		ai = std::move(ais.back());
+	}
+	// Delete last item.
+	ais.pop_back();
 }
 
 std::unique_ptr<VirtualWorld> VirtualWorld::instance = nullptr;

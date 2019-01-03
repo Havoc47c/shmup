@@ -1,6 +1,7 @@
 #include <vector>
 #include <random>
 
+#include "Director.h"
 #include "Object.h"
 #include "Player.h"
 #include "SFML/Graphics.hpp"
@@ -26,6 +27,8 @@ int main() {
 	Ship* enemy = world->Create<Ship>(factory::shape::RectangleShip(), Team1);
 	enemy->setPosition(sf::Vector2f{200, 100});
 	enemy->health = 10;
+
+	world->CreateAi<Director>();
 
 	sf::Font font;
 	if(!font.loadFromFile("assets/OpenSans-Regular.ttf")) {
