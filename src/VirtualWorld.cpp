@@ -2,7 +2,7 @@
 tick::Duration VirtualWorld::Tick() {
 	tick::Instant currentTime = tick::Now();
 	tick::Duration deltaTime = currentTime - lastTickTime;
-	TickAi();
+	TickAi(deltaTime);
 	// can't use range based for, because it uses iterators, and if inside tick,
 	// new objects are created, then the iterators will be invalidated.
 	// for(const auto& renderable : objects) {
@@ -16,11 +16,11 @@ tick::Duration VirtualWorld::Tick() {
 }
 
 // Ai's don't care about how long its been since the last tick.
-tick::Duration VirtualWorld::TickAi() {
+tick::Duration VirtualWorld::TickAi(tick::Duration deltaTime) {
 	tick::Instant currentTime = tick::Now();
 	for(int i = 0; i < ais.size(); ++i) {
 		if (ais[i]->Alive()) {
-			ais[i]->Tick();
+			ais[i]->Tick(deltaTime);
 		} else {
 			Delete(ais[i]);
 		}

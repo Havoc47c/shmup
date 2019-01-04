@@ -60,7 +60,7 @@ protected:
 
 	tick::Duration Tick() override;
 	// Called inside Tick();
-	tick::Duration TickAi();
+	tick::Duration TickAi(tick::Duration deltaTime);
 
 	tick::Duration CollisionCheck() override;
 

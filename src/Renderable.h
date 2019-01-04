@@ -1,11 +1,11 @@
 #pragma once
+#include "Tickable.h"
 #include "Tick.h"
 #include <SFML/Graphics.hpp>
 
-class Renderable {
+class Renderable : public Tickable {
 public:
 	virtual ~Renderable() {}
-	virtual void Tick(tick::Duration deltaTime) = 0;
 	virtual void Render(sf::RenderWindow& window) const = 0;
 
 	// Recurring calculation to determine if an object is alive.
@@ -16,7 +16,7 @@ public:
 	
 	// Returns value indicating whether object is still alive. Alive=true/false
 	// Dead objects can be deleted.
-	[[nodiscard]] bool Alive() const noexcept { return alive; }
+	[[nodiscard]] virtual bool Alive() const noexcept override { return alive; }
 	[[nodiscard]] bool Dead() const noexcept{ return !Alive(); }
 
 	// Forceably kill this object.

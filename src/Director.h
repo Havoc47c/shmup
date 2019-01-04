@@ -5,8 +5,8 @@
 class Director : public Ai {
 public:
 	Director();
-	virtual void Tick() override;
-	virtual bool Alive() override { return true; }
+	virtual void Tick(tick::Duration deltaTime) override;
+	[[nodiscard]] virtual bool Alive() const noexcept override { return true; }
 private:
 	InterleavedPassiveEvent spawnEnemyEvent;
 	void SpawnEnemy();

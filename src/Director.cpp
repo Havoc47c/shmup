@@ -9,7 +9,7 @@ Director::Director()
 	: spawnEnemyEvent([this](){this->SpawnEnemy();}, 1s) {
 }
 
-void Director::Tick() {
+void Director::Tick(tick::Duration deltaTime) {
 	spawnEnemyEvent.AttemptTrigger();
 }
 
