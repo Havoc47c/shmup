@@ -12,8 +12,12 @@ void Ship::Collide(Object* other, CollisionType otherType) {
 	}
 	else if (otherType == CollisionType::Ship) {
 		// Small collision damage.
-		dynamic_cast<Ship*>(other)->Damage(1);
+		dynamic_cast<Ship*>(other)->DamageFromShipContact(1);
 	}
+}
+
+void Ship::DamageFromShipContact(int damage) {
+	damageFromShipContactEvent.AttemptTrigger(damage);
 }
 
 void Ship::Damage(int damage) {

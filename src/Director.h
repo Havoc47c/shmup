@@ -8,6 +8,6 @@ public:
 	virtual void Tick(tick::Duration deltaTime) override;
 	[[nodiscard]] virtual bool Alive() const noexcept override { return true; }
 private:
-	InterleavedPassiveEvent spawnEnemyEvent;
+	InterleavedPassiveEvent<> spawnEnemyEvent;
 	void SpawnEnemy();
 };

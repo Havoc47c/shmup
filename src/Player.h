@@ -13,5 +13,5 @@ public:
 	virtual void Tick(tick::Duration deltaTime) override;
 
 protected:
-	InterleavedPassiveEvent Shoot;
+	InterleavedPassiveEvent<> Shoot;
 };
